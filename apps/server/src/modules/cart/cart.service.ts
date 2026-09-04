@@ -1,7 +1,6 @@
 import { prisma } from "../../database/prisma.js";
 import type { AddCartItemRequest, UpdateCartItemRequest } from "@eaa/types";
-
-const MOCK_USER_ID = "mock-user";
+import { MOCK_USER_ID } from "../../common/user.js";
 
 export class CartService {
   async getCart() {
@@ -10,6 +9,7 @@ export class CartService {
       include: { product: true },
       orderBy: { createdAt: "desc" },
     });
+
     return items.map((i) => ({
       ...i,
       product: {
@@ -21,15 +21,22 @@ export class CartService {
 
   async addItem(body: AddCartItemRequest) {
     const existing = await prisma.cartItem.findFirst({
-      where: { userId: MOCK_USER_ID, productId: body.productId },
+      where: {
+        userId: MOCK_USER_ID,
+        productId: body.productId,
+      },
     });
+
     if (existing) {
       return prisma.cartItem.update({
         where: { id: existing.id },
-        data: { quantity: existing.quantity + (body.quantity ?? 1) },
+        data: {
+          quantity: existing.quantity + (body.quantity ?? 1),
+        },
         include: { product: true },
       });
     }
+
     return prisma.cartItem.create({
       data: {
         userId: MOCK_USER_ID,
@@ -49,13 +56,10 @@ export class CartService {
   }
 
   async removeItem(id: string) {
-    await prisma.cartItem.delete({ where: { id } });
+    await prisma.cartItem.delete({
+      where: { id },
+    });
   }
 }
 
 export const cartService = new CartService();
-import { prisma } from "../../database/prisma.js";
-import type { AddCartItemRequest, UpdateCartItemRequest } from "@eaa/types";
-import { MOCK_USER_ID } from "../../common/user.js";
-
-export class CartService {

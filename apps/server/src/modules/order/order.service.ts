@@ -1,7 +1,6 @@
 import { prisma } from "../../database/prisma.js";
+import { MOCK_USER_ID } from "../../common/user.js";
 import type { CreateOrderRequest, OrderPreview } from "@eaa/types";
-
-const MOCK_USER_ID = "mock-user";
 
 export class OrderService {
   async preview(_body?: CreateOrderRequest): Promise<OrderPreview> {
@@ -50,8 +49,3 @@ export class OrderService {
 }
 
 export const orderService = new OrderService();
-import { prisma } from "../../database/prisma.js";
-import type { CreateOrderRequest, OrderPreview } from "@eaa/types";
-import { MOCK_USER_ID } from "../../common/user.js";
-
-export class OrderService {
