@@ -1,0 +1,24 @@
+{
+  "name": "ecommerce-ai-agent",
+  "version": "0.0.1",
+  "private": true,
+  "description": "基于 RAG 的多模态电商智能导购 AI Agent",
+  "scripts": {
+    "dev": "pnpm -r --parallel dev",
+    "build": "pnpm -r build",
+    "lint": "pnpm -r lint",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "tsx scripts/import-products.ts",
+    "vector:build": "tsx scripts/build-vector.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.0",
+    "prisma": "^5.12.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.12.0"
+  }
+}
