@@ -2,7 +2,7 @@ import { useCallback } from "react";
 
 export function useSSE() {
   const connect = useCallback(
-    (url: string, body: Record<string, unknown>, onMessage: (data: unknown) => void) => {
+    <T,>(url: string, body: Record<string, unknown>, onMessage: (data: T) => void) => {
       return new Promise<void>((resolve, reject) => {
         const es = new EventSource(`${url}?payload=${encodeURIComponent(JSON.stringify(body))}`);
         es.onmessage = (event) => {
@@ -15,7 +15,7 @@ export function useSSE() {
             const data = JSON.parse(event.data);
             onMessage(data);
           } catch {
-            onMessage({ type: "text", content: event.data });
+            onMessage({ type: "text", content: event.data } as T);
           }
         };
         es.onerror = () => {

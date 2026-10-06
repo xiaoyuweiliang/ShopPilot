@@ -28,7 +28,7 @@ async function main() {
   await app.register(orderRoutes, { prefix: "/api/orders" });
 
   try {
-    await app.listen({ port: env.PORT, host: "0.0.0.0" });
+    await app.listen({ port: Number(env.PORT), host: "0.0.0.0" });
     app.log.info(`Server listening on http://localhost:${env.PORT}`);
   } catch (err) {
     app.log.error(err);

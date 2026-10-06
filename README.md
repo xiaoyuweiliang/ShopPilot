@@ -11,7 +11,7 @@
 ## 项目结构
 
 ```
-ecommerce-ai-agent/
+ShopPilot/
 ├── apps/
 │   ├── web/          # React 前端
 │   └── server/       # Node.js 后端
@@ -36,7 +36,7 @@ pnpm install
 ### 2. 启动基础设施
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 ### 3. 初始化数据库
